@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreModelLayer
 {
-    public class CartModel
+    public class Cart
     {
         [Key]
         public int CartId { get; set; }

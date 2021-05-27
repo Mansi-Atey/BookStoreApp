@@ -1,8 +1,8 @@
 ﻿using BookStoreModelLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,68 +13,62 @@ namespace BookStoreRepositoryLayer
 {
     public class UserRepositoryLayer:IUserRepository
     {
-        private IConfiguration configuration { get; }
-        public UserRepositoryLayer(IConfiguration configuration)
+        private SqlConnection connection;
+        //To Handle connection related activities    
+        private void Connection()
         {
-            this.configuration = configuration;
+            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ToString();
+            connection = new SqlConnection(connectionString);
         }
 
-        public object AddUserDetails(UserModel user)
+        public object AddUserDetails(User user)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(configuration.GetConnectionString("UserDbConnection")))
-                {
-                    SqlCommand cmd = new SqlCommand("spAddUserDetails", con);
+                    SqlCommand cmd = new SqlCommand("spAddUserDetails", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", user.LastName);
                     cmd.Parameters.AddWithValue("@Email", user.Email);
-                    cmd.Parameters.AddWithValue("@UserAddress", user.UserAddress);
-                    cmd.Parameters.AddWithValue("@City", user.City);
-                    cmd.Parameters.AddWithValue("@PinCode", user.PinCode);
                     cmd.Parameters.AddWithValue("@Password", user.Password);
                     cmd.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
-
-                    con.Open();
+                    connection.Open();
                     int i = cmd.ExecuteNonQuery();
-                    con.Close();
                     return "registration done successfully.";
-                }
             }
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
-        public LoginModel Login(LoginModel login)
+        public Login Login(Login login)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(configuration.GetConnectionString("UserDbConnection")))
-                {
-
-                    SqlCommand cmd = new SqlCommand("spLogin", con);
+                    SqlCommand cmd = new SqlCommand("spLogin", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Email", login.Email);
                     cmd.Parameters.AddWithValue("@Password", login.Password);
-                    con.Open();
+                    connection.Open();
                     using (SqlDataReader sdr = cmd.ExecuteReader())
                     {
                         if (sdr.HasRows)
-                        {
-                            con.Close();
                             return login;
-                        }
                     }
-                    con.Close();
                     return null;
-                }
             }
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
     }

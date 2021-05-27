@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BookStoreRepositoryLayer.RepositoryInterface
 {
-    public interface IUserRepository
+    public interface IWishListRepo
     {
-        object AddUserDetails(User user);
-        Login Login(Login login);
-
+        WishList AddToWishList(int UserId, int BookId);
+        bool DeleteFromWishList(int UserId, int WishListId);
+        List<WishList> ViewWishListDetails();
     }
 }

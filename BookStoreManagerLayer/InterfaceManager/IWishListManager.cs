@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BookStoreManagerLayer.InterfaceManager
 {
-   public interface IUserManager
+    public interface IWishListManager
     {
-        object AddUserDetails(User user);
-        Login Login(Login login);
-
+        WishList AddToWishList(int UserId, int BookId);
+        bool DeleteFromWishList(int UserId, int WishListId);
+        List<WishList> ViewWishListDetails();
     }
 }

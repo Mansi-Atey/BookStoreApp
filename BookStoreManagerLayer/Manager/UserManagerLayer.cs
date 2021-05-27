@@ -17,11 +17,11 @@ namespace BookStoreManagerLayer
         {
             this.userRepository = userRepository;
         }
-        public object AddUserDetails(UserModel user)
+        public object AddUserDetails(User user)
         {
             return this.userRepository.AddUserDetails(user);
         }
-        public LoginModel Login(LoginModel login)
+        public Login Login(Login login)
         {
             return this.userRepository.Login(login);
         }

@@ -16,7 +16,7 @@ namespace BookStoreManagerLayer
         {
             this.bookRepository = bookRepository;
         }
-        public Book AddBook(Book book)
+        public Books AddBook(Books book)
         {
             return this.bookRepository.AddBook(book);
         }
@@ -24,11 +24,11 @@ namespace BookStoreManagerLayer
         {
             return this.bookRepository.DeleteBook(bookId);
         }
-        public bool UpdateBook(int BookID, Book book)
+        public bool UpdateBook(int BookID, Books book)
         {
             return this.bookRepository.UpdateBook(BookID, book);
         }
-        public List<Book> GellAllBooks()
+        public List<Books> GellAllBooks()
         {
             return this.bookRepository.GellAllBooks();
         }

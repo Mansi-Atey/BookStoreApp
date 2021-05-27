@@ -1,8 +1,9 @@
-﻿using BookStoreModelLayer;
+﻿
+using BookStoreModelLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,20 +14,19 @@ namespace BookStoreRepositoryLayer
 {
     public class BookRepositoryLayer:IBookRepository
     {
-        private readonly IConfiguration configuration;
-        public BookRepositoryLayer(IConfiguration configuration)
+        private SqlConnection connection;
+        //To Handle connection related activities    
+        private void Connection()
         {
-
-            this.configuration = configuration;
+            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ToString();
+            connection = new SqlConnection(connectionString);
         }
-        public Book AddBook(Book book)
+
+        public Books AddBook(Books book)
         {
             try
             {
-
-                using (SqlConnection con = new SqlConnection(configuration.GetConnectionString("UserDbConnection")))
-                {
-                    SqlCommand cmd = new SqlCommand("spAddBooks", con);
+                    SqlCommand cmd = new SqlCommand("spAddBooks", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.AddWithValue("@BookID", book.BookID);
                     cmd.Parameters.AddWithValue("@BookName", book.BookName);
@@ -35,32 +35,23 @@ namespace BookStoreRepositoryLayer
                     cmd.Parameters.AddWithValue("@Quantity", book.Quantity);
                     cmd.Parameters.AddWithValue("@BookImage", book.BookImage);
                     cmd.Parameters.AddWithValue("@BookDiscription", book.BookDiscription);
-                    con.Open();
+                    connection.Open();
                     int i = cmd.ExecuteNonQuery();
-                    con.Close();
+                    connection.Close();
                     if (i >= 1)
-                    {
-
                         return book;
-                    }
                     else
-                    {
                         return null;
-                    }
-                }
             }
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
             }
         }
-
         public bool DeleteBook(int bookId)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString("UserDbConnection")))
-                {
                     SqlCommand cmd = new SqlCommand("spDeleteBook", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@BookID", bookId);
@@ -68,27 +59,19 @@ namespace BookStoreRepositoryLayer
                     int i = cmd.ExecuteNonQuery();
                     connection.Close();
                     if (i >= 1)
-                    {
                         return true;
-                    }
                     else
-                    {
-
                         return false;
-                    }
-                }
             }
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
             }
         }
-        public bool UpdateBook(int BookID, Book book)
+        public bool UpdateBook(int BookID, Books book)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString("UserDbConnection")))
-                {
                     SqlCommand cmd = new SqlCommand("spUpdateBook", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@BookID", BookID);
@@ -99,46 +82,34 @@ namespace BookStoreRepositoryLayer
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     connection.Close();
-                    if (i >= 1)
-                    {
-
+                    if (i >= 1)           
                         return true;
-                    }
                     else
-                    {
                         return false;
-                    }
-                }
             }
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
             }
         }
-        public List<Book> GellAllBooks()
+        public List<Books> GellAllBooks()
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString("UserDbConnection")))
-                {
-                    List<Book> booklist = new List<Book>();
+                   List<Books> booklist = new List<Books>();
                     SqlCommand com = new SqlCommand("spGetAllBooks", connection);
                     com.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(com);
                     DataTable dt = new DataTable();
-
                     connection.Open();
                     da.Fill(dt);
                     connection.Close();
                     //Bind EmpModel generic list using dataRow     
                     foreach (DataRow dr in dt.Rows)
                     {
-
                         booklist.Add(
-
-                            new Book
+                            new Books
                             {
-
                                 BookID = Convert.ToInt32(dr["Id"]),
                                 BookName = Convert.ToString(dr["Name"]),
                                 BookDiscription = Convert.ToString(dr["Discription"]),
@@ -148,7 +119,6 @@ namespace BookStoreRepositoryLayer
                             });
                     }
                     return booklist;
-                }
             }
             catch (Exception exception)
             {

@@ -18,7 +18,7 @@ namespace BookStoreManagerLayer
             this.cartRepository = cartRepository;
         }
 
-        public CartModel AddCartDetails(CartModel cart)
+        public Cart AddCartDetails(Cart cart)
         {
             return this.cartRepository.AddCartDetails(cart);
         }
@@ -27,11 +27,11 @@ namespace BookStoreManagerLayer
         {
             return this.cartRepository.DeleteCartByCartId(cartId);
         }
-        public bool UpdateCart(int CartId, CartModel cartModel)
+        public bool UpdateCart(int CartID, Cart cartModel)
         {
-            return this.cartRepository.UpdateCart(CartId,cartModel);
+            return this.cartRepository.UpdateCart(CartID,cartModel);
         }
-        public List<CartModel> GellAllCart()
+        public List<Cart> GellAllCart()
         {
             return this.cartRepository.GellAllCart();
         }

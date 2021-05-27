@@ -41,13 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookManagerLayer.cs" />
-    <Compile Include="CartManager.cs" />
+    <Compile Include="Manager\BookManagerLayer.cs" />
+    <Compile Include="Manager\CartManager.cs" />
+    <Compile Include="Manager\CustomerDetailsManager.cs" />
     <Compile Include="InterfaceManager\IBookManager.cs" />
     <Compile Include="InterfaceManager\ICartManager.cs" />
+    <Compile Include="InterfaceManager\ICustomerDetailsManager.cs" />
     <Compile Include="InterfaceManager\IUserManager.cs" />
-    <Compile Include="UserManagerLayer.cs" />
+    <Compile Include="InterfaceManager\IWishListManager.cs" />
+    <Compile Include="Manager\UserManagerLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Manager\WishListManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
