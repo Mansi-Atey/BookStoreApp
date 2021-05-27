@@ -35,7 +35,6 @@ namespace BookStoreRepositoryLayer
                     cmd.Parameters.AddWithValue("@Quantity", book.Quantity);
                     cmd.Parameters.AddWithValue("@BookImage", book.BookImage);
                     cmd.Parameters.AddWithValue("@BookDiscription", book.BookDiscription);
-                    connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     connection.Close();
                     if (i >= 1)
@@ -47,6 +46,10 @@ namespace BookStoreRepositoryLayer
             {
                 throw new Exception(exception.Message);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
         public bool DeleteBook(int bookId)
         {
@@ -57,7 +60,6 @@ namespace BookStoreRepositoryLayer
                     cmd.Parameters.AddWithValue("@BookID", bookId);
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
-                    connection.Close();
                     if (i >= 1)
                         return true;
                     else
@@ -66,6 +68,10 @@ namespace BookStoreRepositoryLayer
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
         public bool UpdateBook(int BookID, Books book)
@@ -81,7 +87,6 @@ namespace BookStoreRepositoryLayer
                     cmd.Parameters.AddWithValue("@AuthorName", book.AuthorName);
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
-                    connection.Close();
                     if (i >= 1)           
                         return true;
                     else
@@ -90,6 +95,10 @@ namespace BookStoreRepositoryLayer
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
         public List<Books> GellAllBooks()
@@ -103,18 +112,17 @@ namespace BookStoreRepositoryLayer
                     DataTable dt = new DataTable();
                     connection.Open();
                     da.Fill(dt);
-                    connection.Close();
-                    //Bind EmpModel generic list using dataRow     
+                    //Bind bookModel generic list using dataRow     
                     foreach (DataRow dr in dt.Rows)
                     {
                         booklist.Add(
                             new Books
                             {
-                                BookID = Convert.ToInt32(dr["Id"]),
-                                BookName = Convert.ToString(dr["Name"]),
-                                BookDiscription = Convert.ToString(dr["Discription"]),
-                                BookPrice = Convert.ToInt32(dr["Price"]),
-                                AuthorName = Convert.ToString(dr["AName"]),
+                                BookID = Convert.ToInt32(dr["BookID"]),
+                                BookName = Convert.ToString(dr["BookName"]),
+                                BookDiscription = Convert.ToString(dr["BookDiscription"]),
+                                BookPrice = Convert.ToInt32(dr["BookPrice"]),
+                                AuthorName = Convert.ToString(dr["AuthorName"]),
                                 Quantity = Convert.ToInt32(dr["Quantity"])
                             });
                     }
@@ -123,6 +131,10 @@ namespace BookStoreRepositoryLayer
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
     }
