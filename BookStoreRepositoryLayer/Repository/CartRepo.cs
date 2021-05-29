@@ -26,7 +26,7 @@ namespace BookStoreRepositoryLayer
             {
                     SqlCommand command = new SqlCommand("spAddToCart", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@BookId", cartModel.BookID);
+                    command.Parameters.AddWithValue("@BookID", cartModel.BookID);
                     command.Parameters.AddWithValue("@SelectBookQuantity", cartModel.SelectBookQuantity);
                     connection.Open();
                     int i =command.ExecuteNonQuery();
@@ -77,13 +77,13 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public bool UpdateCart(int CartID, Cart cartModel)
+        public bool UpdateCart(int CartId, Cart cartModel)
         { 
             try
             {              
                     SqlCommand cmd = new SqlCommand("spUpdateCart", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@CartID", CartID);
+                    cmd.Parameters.AddWithValue("@CartId", CartId);
                     cmd.Parameters.AddWithValue("@BookID", cartModel.BookID);
                     cmd.Parameters.AddWithValue("@SelectBookQuantity", cartModel.SelectBookQuantity);
                     connection.Open();
@@ -127,7 +127,7 @@ namespace BookStoreRepositoryLayer
 
                             new Cart
                             {
-                                CartId = Convert.ToInt32(dr["CartID"]),
+                                CartId = Convert.ToInt32(dr["CartId"]),
                                 BookID = Convert.ToInt32(dr["BookID"]),
                                 SelectBookQuantity = Convert.ToInt32(dr["SelectBookQuantity"])
                             });

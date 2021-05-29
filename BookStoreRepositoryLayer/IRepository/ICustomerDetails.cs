@@ -11,7 +11,7 @@ namespace BookStoreRepositoryLayer.RepositoryInterface
     {
         CustomerDetails AddCustomerDetails(CustomerDetails info);
         bool DeleteCustomerDetails(int customerId);
-         bool UpdateCustomerDetails(int CustomerId, CustomerDetails info)
-          List<CustomerDetails> GellAllCustomerDetails()
+        bool UpdateCustomerDetails(int CustomerId, CustomerDetails info);
+        List<CustomerDetails> GellAllCustomerDetails();
     }
 }

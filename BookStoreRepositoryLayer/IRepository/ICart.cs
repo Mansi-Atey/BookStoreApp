@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace BookStoreRepositoryLayer.RepositoryInterface
 {
-    public interface IWishListRepo
+   public interface ICart
     {
-        WishList AddToWishList(int UserId, int BookId);
-        bool DeleteFromWishList(int UserId, int WishListId);
-        List<WishList> ViewWishListDetails();
+        Cart AddCartDetails(Cart cartModel);
+        bool DeleteCartByCartId(int cartId);
+        bool UpdateCart(int CartId, Cart cartModel);
+        List<Cart> GellAllCart();
     }
 }

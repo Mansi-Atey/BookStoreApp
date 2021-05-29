@@ -20,9 +20,9 @@ namespace BookStoreManagerLayer
         {
             return this.bookRepository.AddBook(book);
         }
-        public bool DeleteBook(int bookId)
+        public bool DeleteBook(int bookID)
         {
-            return this.bookRepository.DeleteBook(bookId);
+            return this.bookRepository.DeleteBook(bookID);
         }
         public bool UpdateBook(int BookID, Books book)
         {

@@ -17,9 +17,9 @@ namespace BookStoreManagerLayer
         {
             this.wishListRepository = wishListRepository;
         }
-        public WishList AddToWishList(int UserId, int BookId)
+        public WishList AddToWishList(int UserId, int BookID)
         {
-            return this.wishListRepository.AddToWishList(UserId, BookId);
+            return this.wishListRepository.AddToWishList(UserId, BookID);
         }
         public bool DeleteFromWishList(int UserId, int WishListId)
         {

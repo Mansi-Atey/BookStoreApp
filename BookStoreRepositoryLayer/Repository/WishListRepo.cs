@@ -20,7 +20,7 @@ namespace BookStoreRepositoryLayer
             string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ToString();
             connection = new SqlConnection(connectionString);
         }
-        public WishList AddToWishList(int UserId, int BookId)
+        public WishList AddToWishList(int UserId, int BookID)
         {
             WishList WishList = new WishList();
             try
@@ -28,14 +28,14 @@ namespace BookStoreRepositoryLayer
                 SqlCommand cmd = new SqlCommand("spAddTowishList", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@UserId", UserId);
-                cmd.Parameters.AddWithValue("@BookId", BookId);
+                cmd.Parameters.AddWithValue("@BookID", BookID);
                 connection.Open();
 
                 SqlDataReader sqlreader = cmd.ExecuteReader();
                 while (sqlreader.Read())
                 {
                     WishList.WishListId = Convert.ToInt32(sqlreader["WishListId"].ToString());
-                    WishList.UserID = Convert.ToInt32(sqlreader["UserID"].ToString());
+                    WishList.UserId = Convert.ToInt32(sqlreader["UserId"].ToString());
                     WishList.BookID = Convert.ToInt32(sqlreader["BookID"].ToString());
                     WishList.BookName = sqlreader["BookName"].ToString();
                     WishList.Price = Convert.ToInt32(sqlreader["Price"].ToString());
@@ -96,7 +96,7 @@ namespace BookStoreRepositoryLayer
                     wishlist.Add(
                         new WishList
                         {
-                            UserID = Convert.ToInt32(dr["UserID"]),
+                            UserId = Convert.ToInt32(dr["UserId"]),
                             WishListId = Convert.ToInt32(dr["WishListId"]),
                             BookID = Convert.ToInt32(dr["BookID"]),
                             BookName = Convert.ToString(dr["BookName"]),

@@ -27,9 +27,9 @@ namespace BookStoreManagerLayer
         {
             return this.cartRepository.DeleteCartByCartId(cartId);
         }
-        public bool UpdateCart(int CartID, Cart cartModel)
+        public bool UpdateCart(int CartId, Cart cartModel)
         {
-            return this.cartRepository.UpdateCart(CartID,cartModel);
+            return this.cartRepository.UpdateCart(CartId,cartModel);
         }
         public List<Cart> GellAllCart()
         {

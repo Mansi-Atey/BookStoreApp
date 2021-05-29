@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStoreRepositoryLayer.RepositoryInterface
+namespace BookStoreManagerLayer.InterfaceManager
 {
-   public interface IBookRepository
+   public interface IBookManager
     {
         Books AddBook(Books book);
-        bool DeleteBook(int bookId);
+        bool DeleteBook(int bookID);
         bool UpdateBook(int BookID, Books book);
         List<Books> GellAllBooks();
     }

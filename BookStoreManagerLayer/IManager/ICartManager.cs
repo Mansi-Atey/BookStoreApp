@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStoreRepositoryLayer.RepositoryInterface
+namespace BookStoreManagerLayer.InterfaceManager
 {
-   public interface ICart
+   public interface ICartManager
     {
         Cart AddCartDetails(Cart cartModel);
         bool DeleteCartByCartId(int cartId);
-        bool UpdateCart(int CartID, Cart cartModel);
+        bool UpdateCart(int CartId, Cart cartModel);
         List<Cart> GellAllCart();
     }
 }

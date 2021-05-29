@@ -17,7 +17,7 @@ namespace BookStoreRepositoryLayer
         //To Handle connection related activities    
         private void Connection()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ConnectionString;
             connection = new SqlConnection(connectionString);
         }
 
@@ -25,14 +25,14 @@ namespace BookStoreRepositoryLayer
         {
             try
             {
-                    SqlCommand cmd = new SqlCommand("spAddUserDetails", connection);
+                Connection();
+                SqlCommand cmd = new SqlCommand("spAddUserDetails", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", user.LastName);
                     cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@Password", user.Password);
-                    cmd.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     return "registration done successfully.";

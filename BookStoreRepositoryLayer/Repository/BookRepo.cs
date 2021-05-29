@@ -28,7 +28,7 @@ namespace BookStoreRepositoryLayer
             {
                     SqlCommand cmd = new SqlCommand("spAddBooks", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@BookID", book.BookID);
+                    cmd.Parameters.AddWithValue("@BookID", book.BookID);
                     cmd.Parameters.AddWithValue("@BookName", book.BookName);
                     cmd.Parameters.AddWithValue("@AuthorName", book.AuthorName);
                     cmd.Parameters.AddWithValue("@BookPrice", book.BookPrice);
@@ -51,13 +51,13 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public bool DeleteBook(int bookId)
+        public bool DeleteBook(int bookID)
         {
             try
             {
                     SqlCommand cmd = new SqlCommand("spDeleteBook", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@BookID", bookId);
+                    cmd.Parameters.AddWithValue("@BookID", bookID);
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i >= 1)

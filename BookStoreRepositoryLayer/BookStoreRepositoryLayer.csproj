@@ -64,15 +64,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRepository\IOrderRepo.cs" />
     <Compile Include="Repository\BookRepo.cs" />
     <Compile Include="Repository\CartRepo.cs" />
     <Compile Include="Repository\CustomerDetailsRepo.cs" />
-    <Compile Include="RepositoryInterface\IBookRepository.cs" />
-    <Compile Include="RepositoryInterface\ICart.cs" />
-    <Compile Include="RepositoryInterface\ICustomerDetails.cs" />
-    <Compile Include="RepositoryInterface\IUserRepository.cs" />
-    <Compile Include="RepositoryInterface\IWishListRepo.cs" />
-    <Compile Include="Repository\UserRepo.cs" />
+    <Compile Include="IRepository\IBookRepository.cs" />
+    <Compile Include="IRepository\ICart.cs" />
+    <Compile Include="IRepository\ICustomerDetails.cs" />
+    <Compile Include="IRepository\IUserRepository.cs" />
+    <Compile Include="IRepository\IWishListRepo.cs" />
+    <Compile Include="Repository\OrderRepo.cs" />
+    <Compile Include="Repository\UserRepositoryLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\WishListRepo.cs" />
   </ItemGroup>

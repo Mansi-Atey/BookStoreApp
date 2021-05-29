@@ -1,5 +1,6 @@
 ﻿using BookStoreManagerLayer.InterfaceManager;
 using BookStoreModelLayer;
+using BookStoreRepositoryLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -7,19 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStoreManagerLayer
+namespace BookStoreManagerLayer.Manager
 {
     public class UserManagerLayer:IUserManager
     {
-        private readonly IUserRepository userRepository;
-
-        public UserManagerLayer(IUserRepository userRepository)
+        private readonly IUserRepository userRepository = new UserRepositoryLayer();
+        public object AddUserDetails(User users)
         {
-            this.userRepository = userRepository;
-        }
-        public object AddUserDetails(User user)
-        {
-            return this.userRepository.AddUserDetails(user);
+            return this.userRepository.AddUserDetails(users);
         }
         public Login Login(Login login)
         {

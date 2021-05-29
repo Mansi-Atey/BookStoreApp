@@ -12,7 +12,7 @@ namespace BookStoreModelLayer
         [Key]
         [Required]
         public int WishListId { get; set; }
-        public int UserID { get; set; }
+        public int UserId { get; set; }
         public int BookID { get; set; }
         public double Price { get; set; }
         public string BookName { get; set; }
