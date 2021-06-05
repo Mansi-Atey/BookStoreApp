@@ -17,17 +17,19 @@ namespace BookStoreRepositoryLayer
         //To Handle connection related activities    
         private void Connection()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ConnectionString;
             connection = new SqlConnection(connectionString);
         }
         public Cart AddCartDetails(Cart cartModel)
         {
             try
             {
+                 Connection();
                     SqlCommand command = new SqlCommand("spAddToCart", connection);
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UserId", cartModel.UserId);
                     command.Parameters.AddWithValue("@BookID", cartModel.BookID);
-                    command.Parameters.AddWithValue("@SelectBookQuantity", cartModel.SelectBookQuantity);
+                    command.Parameters.AddWithValue("@TotalQuantity", cartModel.TotalQuantity);
                     connection.Open();
                     int i =command.ExecuteNonQuery();
                     if (i >= 1)
@@ -85,7 +87,7 @@ namespace BookStoreRepositoryLayer
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@CartId", CartId);
                     cmd.Parameters.AddWithValue("@BookID", cartModel.BookID);
-                    cmd.Parameters.AddWithValue("@SelectBookQuantity", cartModel.SelectBookQuantity);
+                    cmd.Parameters.AddWithValue("@TotalQuantity", cartModel.TotalQuantity);
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i >= 1)
@@ -107,30 +109,34 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public List<Cart> GellAllCart()
+        public List<CartResponse> GellAllCart()
         {
             try
             {
-                    List<Cart> cartlist = new List<Cart>();
+                     Connection();
+                    List<CartResponse> cartlist = new List<CartResponse>();
                     SqlCommand com = new SqlCommand("spGetAllCart", connection);
                     com.CommandType = CommandType.StoredProcedure;
-                    SqlDataAdapter da = new SqlDataAdapter(com);
+                    com.Parameters.AddWithValue("@UserId", 1);
+                     SqlDataAdapter da = new SqlDataAdapter(com);
                     DataTable dt = new DataTable();
-
                     connection.Open();
                     da.Fill(dt);
                     //Bind CartModel generic list using dataRow     
                     foreach (DataRow dr in dt.Rows)
                     {
-
-                        cartlist.Add(
-
-                            new Cart
-                            {
-                                CartId = Convert.ToInt32(dr["CartId"]),
-                                BookID = Convert.ToInt32(dr["BookID"]),
-                                SelectBookQuantity = Convert.ToInt32(dr["SelectBookQuantity"])
-                            });
+                    cartlist.Add(
+                        new CartResponse
+                        {
+                            CartId = Convert.ToInt32(dr["CartId"]),
+                            //UserId = Convert.ToInt32(dr["UserId"]),
+                            BookID = Convert.ToInt32(dr["BookID"]),
+                            // TotalQuantity = Convert.ToInt32(dr["TotalQuantity"])
+                            BookName = dr["BookName"].ToString(),
+                            BookPrice = Convert.ToInt32(dr["BookPrice"]),
+                            AuthorName = dr["AuthorName"].ToString(),
+                            BookImage = dr["BookImage"].ToString(),
+                        }) ;
                     }
                     return cartlist;
             }

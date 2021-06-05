@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStoreManagerLayer
+namespace BookStoreModelLayer
 {
-   public class Response<T>
+    public class Response<T>
     {
         public int StatusCode { get; set; }
         public string Message { get; set; }
         public T Data { get; set; }
-
-
     }
 }

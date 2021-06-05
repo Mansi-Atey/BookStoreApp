@@ -9,7 +9,7 @@ namespace BookStoreRepositoryLayer.RepositoryInterface
 {
     public interface IUserRepository
     {
-        object AddUserDetails(User user);
+        User AddUserDetails(User user);
         Login Login(Login login);
 
     }

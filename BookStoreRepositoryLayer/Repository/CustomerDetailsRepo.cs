@@ -17,7 +17,7 @@ namespace BookStoreRepositoryLayer
         //To Handle connection related activities    
         private void Connection()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ConnectionString;
             connection = new SqlConnection(connectionString);
         }
 
@@ -25,6 +25,7 @@ namespace BookStoreRepositoryLayer
         {
             try
             {
+                Connection();
                 SqlCommand cmd = new SqlCommand("spAddBooks", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@UserId", info.UserId);

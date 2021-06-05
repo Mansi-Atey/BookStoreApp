@@ -22,3 +22,197 @@ select,
 textarea {
     max-width: 280px;
 }
+ /*.title_Layout {
+    color: white;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+} 
+*/
+.box {
+    text-align: center;
+    background: #800000;
+    opacity: 1;
+    margin: 0px;
+    font-family: 'Montserrat', sans-serif;
+    height: 55px;
+}
+h2{
+    margin-left:50px;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+h5{
+    margin-left:135px;
+    margin-top:-32px;
+    margin-bottom:8px;
+    padding-top:3px;
+    color:gray;
+    font-size:11px;
+}
+.text1 {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    float: left;
+    flex-wrap: wrap;
+    margin-left: 150px;
+    color: white;
+    padding-top:5px;
+}
+
+.text2 {
+    font-family: 'Poppins', sans-serif;
+    float: right;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-right: 165px;
+    color:white;
+    padding-top:10px;
+}
+.card_getbooks {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 22%;
+    margin-right: 16px;
+    margin-top: 10px;
+    height: 158px;
+}
+.card_getbooks:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.container_getbooks {
+    padding: 15px 16px;
+}
+.card_container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left:55px;
+    padding-right:15px;
+}
+.getbook_field{
+    padding:2px 5px;
+}
+.text_size{
+    font-size:10px;
+    color:gray;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 10px;
+    padding-left: 0px;
+    font-size: 10px;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #841e1c;
+    width: 90px;
+    height: 25px;
+}
+
+.btn-primary {
+    display: none;
+}
+.btn-second {
+    display: none;
+    background-color:white;
+    margin-right:50px;
+    margin-top:20px;
+}
+.btn-wishlist {
+    color: black;
+    width: 100px;
+    background-color: white;
+    height: 25px
+}
+/*.box input[type=text] {
+    width: 40%;
+    padding-top: 3px;
+    margin-top: 13px;
+    margin-right: 320px;
+}*/
+
+/****************************************************************/
+
+.cart_container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: -1px;
+    width: 65%;
+    margin-top: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    flex-direction: column;
+    padding: 20px 20px;
+    margin-left: 10%
+}
+h1 {
+    font-size: 23px;
+    color: black;
+}
+.place-btn {
+    cursor: pointer;
+    color: white;
+    background-color: #2877d3;
+    border-radius: 2px;
+    margin-top: 9px;
+    margin-left: 74%;
+}
+#demoInput {
+    max-width: 40px;
+    height: 20px;
+}
+.increase {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    border-radius: 10px;
+    border: navajowhite;
+}
+#form-div-cart{
+    display: none;
+}
+.decrease {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    border-radius: 10px;
+    border: navajowhite;
+}
+.quantity {
+    padding-top: 10px;
+    padding-left: 5px;
+}
+h3 {
+    font-size: 17px;
+    color: gray;
+    height: 40px;
+}
+
+.customer {
+    width: 65%;
+    margin-top: 14px;
+}
+
+.row {
+    display: flex;
+    justify-content:space-around;
+    height:35px;
+}
+.third_row {
+    margin-left: 30px;
+    height: 35px;
+}
+.radio-btn {
+    display: flex;
+}
+.continue{
+    margin-left:130%;
+}
+.continue-btn {
+    background-color: #2877d3;
+    color:white;
+}

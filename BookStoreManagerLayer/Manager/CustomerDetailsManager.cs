@@ -1,5 +1,6 @@
 ﻿using BookStoreManagerLayer.InterfaceManager;
 using BookStoreModelLayer;
+using BookStoreRepositoryLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,12 @@ namespace BookStoreManagerLayer
 {
     public class CustomerDetailsManager:ICustomerDetailsManager
     {
-        private readonly ICustomerDetails customerRepository;
+        private readonly ICustomerDetails customerRepository = new CustomerDetailsRepo();
 
-        public CustomerDetailsManager(ICustomerDetails customerRepository)
-        {
-            this.customerRepository = customerRepository;
-        }
+        //public CustomerDetailsManager(ICustomerDetails customerRepository)
+        //{
+        //    this.customerRepository = customerRepository;
+        //}
         public CustomerDetails AddCustomerDetails(CustomerDetails info)
         {
             return this.customerRepository.AddCustomerDetails(info);

@@ -1,5 +1,6 @@
 ﻿using BookStoreManagerLayer.InterfaceManager;
 using BookStoreModelLayer;
+using BookStoreRepositoryLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,12 @@ namespace BookStoreManagerLayer
 {
    public class CartManager:ICartManager
     {
-        private readonly ICart cartRepository;
+        private readonly ICart cartRepository = new CartRepo();
 
-        public CartManager(ICart cartRepository)
-        {
-            this.cartRepository = cartRepository;
-        }
+        //public CartManager(ICart cartRepository)
+        //{
+        //    this.cartRepository = cartRepository;
+        //}
 
         public Cart AddCartDetails(Cart cart)
         {
@@ -31,7 +32,7 @@ namespace BookStoreManagerLayer
         {
             return this.cartRepository.UpdateCart(CartId,cartModel);
         }
-        public List<Cart> GellAllCart()
+        public List<CartResponse> GellAllCart()
         {
             return this.cartRepository.GellAllCart();
         }

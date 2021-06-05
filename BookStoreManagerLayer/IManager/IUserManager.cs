@@ -9,7 +9,7 @@ namespace BookStoreManagerLayer.InterfaceManager
 {
    public interface IUserManager
     {
-        object AddUserDetails(User user);
+        User AddUserDetails(User user);
         Login Login(Login login);
 
     }

@@ -17,10 +17,15 @@ namespace BookStoreApplication.Controllers
         {
 
         }
-       // public ActionResult Register()
-       // {
-       //     return View();
-       //}
+        public ActionResult Register()
+        {
+           
+            return View();
+        }
+        public ActionResult Login()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Register(User users)
         {
@@ -28,13 +33,27 @@ namespace BookStoreApplication.Controllers
             {
                 var result = this.userManager.AddUserDetails(users);
                 ViewBag.Message = "User registered successfully";
-                return View();
+                // return View();
+                return RedirectToAction("Login");
             }
             catch (Exception)
             {
                 return ViewBag.Message = "User registered unsuccessfully";
             }
         }
-
+        [HttpPost]
+        public ActionResult Login(Login login)
+        {
+            try
+            {
+                var result = this.userManager.Login(login);
+                ViewBag.Message = "User Login successfully";
+                return View();
+            }
+            catch (Exception)
+            {
+                return ViewBag.Message = "User Login unsuccessfully";
+            }
+        }
     }
 }

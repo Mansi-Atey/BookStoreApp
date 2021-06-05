@@ -12,6 +12,6 @@ namespace BookStoreRepositoryLayer.RepositoryInterface
         Cart AddCartDetails(Cart cartModel);
         bool DeleteCartByCartId(int cartId);
         bool UpdateCart(int CartId, Cart cartModel);
-        List<Cart> GellAllCart();
+        List<CartResponse> GellAllCart();
     }
 }

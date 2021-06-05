@@ -1,5 +1,6 @@
 ﻿using BookStoreManagerLayer.InterfaceManager;
 using BookStoreModelLayer;
+using BookStoreRepositoryLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace BookStoreManagerLayer
 {
     public class BookManagerLayer:IBookManager
     {
-        private readonly IBookRepository bookRepository;
-        public BookManagerLayer(IBookRepository bookRepository)
-        {
-            this.bookRepository = bookRepository;
-        }
+        private readonly IBookRepository bookRepository = new BookRepositoryLayer();
+        //public BookManagerLayer(IBookRepository bookRepository)
+        //{
+        //    this.bookRepository = bookRepository;
+        //}
         public Books AddBook(Books book)
         {
             return this.bookRepository.AddBook(book);

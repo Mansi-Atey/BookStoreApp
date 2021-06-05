@@ -12,8 +12,8 @@ namespace BookStoreManagerLayer.Manager
 {
     public class UserManagerLayer:IUserManager
     {
-        private readonly IUserRepository userRepository = new UserRepositoryLayer();
-        public object AddUserDetails(User users)
+        private readonly IUserRepository userRepository = new UserRepo();
+        public User AddUserDetails(User users)
         {
             return this.userRepository.AddUserDetails(users);
         }
