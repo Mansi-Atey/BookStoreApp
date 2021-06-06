@@ -1,5 +1,6 @@
 ﻿using BookStoreManagerLayer.InterfaceManager;
 using BookStoreModelLayer;
+using BookStoreRepositoryLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,15 @@ namespace BookStoreManagerLayer
 {
    public class WishListManager:IWishListManager
     {
-        private readonly IWishListRepo wishListRepository;
+        private readonly IWishListRepo wishListRepository = new WishListRepo();
 
-        public WishListManager(IWishListRepo wishListRepository)
+        //public WishListManager(IWishListRepo wishListRepository)
+        //{
+        //    this.wishListRepository = wishListRepository;
+        //}
+        public WishList AddToWishList(WishList wishList)
         {
-            this.wishListRepository = wishListRepository;
-        }
-        public WishList AddToWishList(int UserId, int BookID)
-        {
-            return this.wishListRepository.AddToWishList(UserId, BookID);
+            return this.wishListRepository.AddToWishList(wishList);
         }
         public bool DeleteFromWishList(int UserId, int WishListId)
         {

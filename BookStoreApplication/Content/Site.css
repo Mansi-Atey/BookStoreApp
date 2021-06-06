@@ -199,8 +199,8 @@ h3 {
 
 .row {
     display: flex;
-    justify-content:space-around;
-    height:35px;
+    justify-content: space-around;
+    height: 35px;
 }
 .third_row {
     margin-left: 30px;
@@ -215,4 +215,28 @@ h3 {
 .continue-btn {
     background-color: #2877d3;
     color:white;
+}
+#checkout {
+    display: flex;
+    flex-wrap: wrap;
+    width: 65%;
+    border: 1px solid lightgray;
+    margin-top: 14px;
+    margin-left: 10%;
+    padding: 20px 20px;
+    flex-direction: column;
+    border-radius: 2px;
+}
+
+#checkout-btn {
+    cursor: pointer;
+    color: white;
+    background-color: #2877d3;
+    border-radius: 2px;
+    margin-top: 9px;
+    margin-left: 74%;
+}
+
+#oder-details {
+    display: none;
 }

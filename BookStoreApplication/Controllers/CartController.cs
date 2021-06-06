@@ -43,11 +43,33 @@ namespace BookStoreApplication.Controllers
                 return ViewBag.Message = "sucessfully";
             }
         }
-        //public ActionResult GetAllCart()
-        //{
-        //    return View();
-        //}
-        [HttpGet]
+        [HttpPost]
+        public ActionResult DeleteCartByCartId(int cartId)
+        {
+            try
+            {
+                var result = this.cartManager.DeleteCartByCartId(cartId);
+                if (result > 0)
+                {
+                    return View();
+                    // return Json(new { status = true, Message = "Book added to cart", Data = result });
+                }
+                else
+                {
+                    return Json(new { status = false, Message = "Book not added to cart", Data = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+                //return ViewBag.Message = "sucessfully";
+            }
+        }
+            //public ActionResult GetAllCart()
+            //{
+            //    return View();
+            //}
+            [HttpGet]
         public ActionResult GetAllCart()
         {
             try

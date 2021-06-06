@@ -125,6 +125,7 @@
     <Compile Include="Controllers\CustomerDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WishListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -172,6 +173,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Book\GetAllBooks.cshtml" />
     <Content Include="Views\Cart\GetAllCart.cshtml" />
+    <Content Include="Views\WishList\ViewWishListDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

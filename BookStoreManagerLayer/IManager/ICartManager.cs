@@ -10,7 +10,7 @@ namespace BookStoreManagerLayer.InterfaceManager
    public interface ICartManager
     {
         Cart AddCartDetails(Cart cartModel);
-        bool DeleteCartByCartId(int cartId);
+        int DeleteCartByCartId(int cartId);
         bool UpdateCart(int CartId, Cart cartModel);
         List<CartResponse> GellAllCart();
     }

@@ -9,28 +9,27 @@ using System.Web.Mvc;
 
 namespace BookStoreApplication.Controllers
 {
-    public class CustomerDetailsController : Controller
+    public class WishListController : Controller
     {
-        private readonly ICustomerDetailsManager customerManager = new CustomerDetailsManager();
-        public CustomerDetailsController()
+        private readonly IWishListManager wishListManager = new WishListManager();
+        public WishListController()
         {
 
         }
-        // GET: CustomerDetails
-
+        // GET: WishList
         [HttpPost]
-        public JsonResult AddCustomerDetails(CustomerDetails customers)
+        public JsonResult AddToWishList(WishList wishList)
         {
             try
             {
-                var result = this.customerManager.AddCustomerDetails(customers);
+                var result = this.wishListManager.AddToWishList(wishList);
                 if (result != null)
                 {
-                    return Json(new { status = true, Message = "Customer added..!!!", Data = result });
+                    return Json(new { status = true, Message = "Book added to wishList", Data = result });
                 }
                 else
                 {
-                    return Json(new { status = false, Message = "Customer not added...!!", Data = result });
+                    return Json(new { status = false, Message = "Book not added to wishList", Data = result });
                 }
             }
             catch (Exception ex)
@@ -40,18 +39,17 @@ namespace BookStoreApplication.Controllers
             }
         }
         [HttpGet]
-        public ActionResult GellAllCustomerDetails()
+        public ActionResult ViewWishListDetails()
         {
             try
             {
-                var result = this.customerManager.GellAllCustomerDetails();
+                var result = this.wishListManager.ViewWishListDetails();
                 ViewBag.Message = "";
                 return View(result);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-                //return ViewBag.Message = "";
             }
         }
     }

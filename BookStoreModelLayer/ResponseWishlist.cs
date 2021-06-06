@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace BookStoreModelLayer
 {
-   public class CartResponse
+    public class ResponseWishlist
     {
-        public int CartId { get; set; }
-        public int BookID { get; set; }
+        public int BookID{ get; set; }
+        public int UserId { get; set; }
         public string BookName { get; set; }
-        public int BookPrice { get; set; }      
         public string AuthorName { get; set; }
+        public double BookPrice { get; set; }
         public string BookImage { get; set; }
-        public int TotalQuantity { get; set; }
     }
 }

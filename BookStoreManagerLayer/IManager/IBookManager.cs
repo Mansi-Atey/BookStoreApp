@@ -10,7 +10,7 @@ namespace BookStoreManagerLayer.InterfaceManager
    public interface IBookManager
     {
         Books AddBook(Books book);
-        bool DeleteBook(int bookID);
+        int DeleteBook(int bookID);
         bool UpdateBook(int BookID, Books book);
         List<Books> GellAllBooks();
     }

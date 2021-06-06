@@ -21,7 +21,7 @@ namespace BookStoreManagerLayer
         {
             return this.bookRepository.AddBook(book);
         }
-        public bool DeleteBook(int bookID)
+        public int DeleteBook(int bookID)
         {
             return this.bookRepository.DeleteBook(bookID);
         }

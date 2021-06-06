@@ -51,23 +51,25 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public bool DeleteCartByCartId(int cartId)
+        public int DeleteCartByCartId(int cartId)
         {
             try
             {
+                    Connection();
                     SqlCommand command = new SqlCommand("spDeleteCartByCartId", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@CartId", cartId);
+                 // command.Parameters.AddWithValue("@UserId", userId);
                     connection.Open();
                     int i = command.ExecuteNonQuery();
                     if (i >= 1)
                     {
-                        return true;
+                        return 1;
                     }
                     else
                     {
 
-                        return false;
+                        return 0;
                     }
             }
             catch (Exception exception)
@@ -82,7 +84,8 @@ namespace BookStoreRepositoryLayer
         public bool UpdateCart(int CartId, Cart cartModel)
         { 
             try
-            {              
+            {
+                    Connection();
                     SqlCommand cmd = new SqlCommand("spUpdateCart", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@CartId", CartId);
@@ -113,7 +116,7 @@ namespace BookStoreRepositoryLayer
         {
             try
             {
-                     Connection();
+                    Connection();
                     List<CartResponse> cartlist = new List<CartResponse>();
                     SqlCommand com = new SqlCommand("spGetAllCart", connection);
                     com.CommandType = CommandType.StoredProcedure;

@@ -9,7 +9,7 @@ namespace BookStoreManagerLayer.InterfaceManager
 {
     public interface IWishListManager
     {
-        WishList AddToWishList(int UserId, int BookID);
+        WishList AddToWishList(WishList wishList);
         bool DeleteFromWishList(int UserId, int WishListId);
         List<WishList> ViewWishListDetails();
     }

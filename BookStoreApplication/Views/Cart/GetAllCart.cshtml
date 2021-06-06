@@ -9,90 +9,125 @@
         <h4 class="text2">Cart</h4>
         @*<input type="text" placeholder="Search..">*@
     </div>
-    <div class="cart_container">
-        <h1>My Cart(1)</h1>
-        @foreach (var items in Model)
-        {
-            <div class="card_getcart">
-                <div class="getcart_field">
-                    @items.BookImage
-                </div>
-                <div class="container_getcart">
-                    <div class="getcart_field">
-                        @items.BookName
-                    </div>
-                    <div class="getcart_field text_size">
-                        By @items.AuthorName
-                    </div>
-                    <div class="getcart_field">
-                        Rs.@items.BookPrice
-                    </div>
-                </div>
-            </div>
-        }
-    <div class="quantity">
-        <button class="decrease" onclick="decrement()">-</button>
-        <input id=demoInput type=number min=0 max=50>
-        <button class="increase" onclick="increment()">+</button>
+    <div class="book">
+        <h2>Books</h2>
+        <h5>(128 items)</h5>
     </div>
-        <input type="button" value="PLACE ORDER" id="placeid" class="place-btn" onclick="place_order()">
-    </div>
-    <div class="cart_container">
-        <div class="customer">
-            <h3>Customer Details</h3>
-            <div id="form-div-cart">
-                <form>
-                    <div class="row">
-                        <div class="Na_me">
-                            <input type="text" placeholder="Name" />
-                        </div>
-                        <div class="Phone_number">
-                            <input type="text" placeholder="PhoneNumber" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="Pin_code">
-                            <input type="number" placeholder="Pincode" />
-                        </div>
-                        <div class="Lo_cality">
-                            <input type="text" placeholder="Locality" />
-                        </div>
-                    </div>
-                    <div class="third_row">
-                        <div class="Addresss">
-                            <input type="text" placeholder="Address" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="City">
-                            <input type="text" placeholder="City/Town" />
-                        </div>
-                        <div class="Landmark">
-                            <input type="text" placeholder="Landmark" />
-                        </div>
-                    </div>
-                    <div class="fifth_row">
-                        <h3>Type</h3>
-                        <div class="radio-btn">
-                            
+    <div class="card">
+        <div class="cart_container">
+            @*<h1>
+                My Cart(@Model.Sum(b => b.TotalQuantity))
+            </h1>*@
 
+            @*// @foreach (var count in Model)
+                    //{
+                    @Model.Sum(b => b.CartBookQuantity);
+                //@count.CartBookQuantity;
+                //}
+                )*@
+            @foreach (var items in Model)
+            {
+                <div class="card_getcart">
+                    <div class="getcart_field">
+                        @items.BookImage
+                    </div>
+                    <div class="container_getcart">
+                        <div class="getcart_field">
+                            @items.BookName
+                        </div>
+                        <div class="getcart_field text_size">
+                            By @items.AuthorName
+                        </div>
+                        <div class="getcart_field">
+                            Rs @items.BookPrice
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <input type="button" value="PLACE ORDER" class="place-btn">
+        </div>
+        <div class="cart_container">
+            <div class="customer">
+                <h3>Customer Details</h3>
+                <div id="form-div-cart">
+                    <form>
+                        <div class="row">
+                            <div class="Na_me">
+                                <input type="text" placeholder="Name" id="txtName" />
+                            </div>
+                            <div class="Phone_number">
+                                <input type="text" placeholder="PhoneNumber" id="intNum" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="Pin_code">
+                                <input type="number" placeholder="Pincode" id="intPin" />
+                            </div>
+                            <div class="Lo_cality">
+                                <input type="text" placeholder="Locality" id="txtLocal" />
+                            </div>
+                        </div>
+
+                        <div class="Address">
+                            <input type="text" placeholder="Address" id="txtAddress" />
+                        </div>
+
+                        <div class="row">
+                            <div class="City">
+                                <input type="text" placeholder="City/Town" id="txtCity" />
+                            </div>
+                            <div class="Landmark">
+                                <input type="text" placeholder="Landmark" id="txtLand" />
+                            </div>
+                        </div>
+                        <div class="fifth_row">
+                            <h4>Type</h4>
+                            <div class="radio-btn">
                                 <input type="radio" id="Home" name="type" value="Home">
                                 <label for="Home">Home</label><br>
                                 <input type="radio" id="Work" name="type" value="Work">
                                 <label for="Work">Work</label><br>
                                 <input type="radio" id="Other" name="type" value="Other">
                                 <label for="Other">Other</label>
-                           
+
+                            </div>
+                        </div>
+                        <div class="continue">
+                            <input type="button" value="CONTINUE" id="cont-id" class="continue-btn" onclick="continue_order()">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="checkout">
+            <h3>Order summary</h3>
+            <div id="oder-details">
+                @foreach (var items in Model)
+                {
+                    <div class="card_getcart">
+                        <div class="getcart_field">
+                            @items.BookImage
+                        </div>
+                        <div class="container_getcart">
+                            <div class="getcart_field">
+                                @items.BookName
+                            </div>
+                            <div class="getcart_field text_size">
+                                By @items.AuthorName
+                            </div>
+                            <div class="getcart_field">
+                                Rs.@items.BookPrice
+                            </div>
                         </div>
                     </div>
-                    <div class="continue">
-                        <input type="button" value="CONTINUE" id="cont-id" class="continue-btn" onclick="continue_order()">
-                    </div>
-                </form>
+                }
+                <input type="button" value="CHECKOUT" id="checkout-btn" class="checkout-btn">
             </div>
-       </div>
-   </div>
-    @*@Html.ActionLink("CustomerDetails", "CustomerDetails")*@
+        </div>
+    </div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

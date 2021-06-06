@@ -17,32 +17,28 @@ namespace BookStoreRepositoryLayer
         //To Handle connection related activities    
         private void Connection()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["UserDbConnection"].ConnectionString;
             connection = new SqlConnection(connectionString);
         }
-        public WishList AddToWishList(int UserId, int BookID)
+        public WishList AddToWishList(WishList wishList)
         {
             WishList WishList = new WishList();
             try
             {
+                Connection();
                 SqlCommand cmd = new SqlCommand("spAddTowishList", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserId", UserId);
-                cmd.Parameters.AddWithValue("@BookID", BookID);
+                cmd.Parameters.AddWithValue("@UserId", wishList.UserId);
+                cmd.Parameters.AddWithValue("@BookID", wishList.BookID);
+                cmd.Parameters.AddWithValue("@Quantity", wishList.WishListQuantity);
                 connection.Open();
-
-                SqlDataReader sqlreader = cmd.ExecuteReader();
-                while (sqlreader.Read())
-                {
-                    WishList.WishListId = Convert.ToInt32(sqlreader["WishListId"].ToString());
-                    WishList.UserId = Convert.ToInt32(sqlreader["UserId"].ToString());
-                    WishList.BookID = Convert.ToInt32(sqlreader["BookID"].ToString());
-                    WishList.BookName = sqlreader["BookName"].ToString();
-                    WishList.Price = Convert.ToInt32(sqlreader["Price"].ToString());
-                    WishList.WishListQuantity = Convert.ToInt32(sqlreader["WishListQuantity"].ToString());
-                }
-                return WishList;
+                int i = cmd.ExecuteNonQuery();
+                if (i >= 1)
+                    return wishList;
+                else
+                    return null;
             }
+
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
@@ -83,6 +79,7 @@ namespace BookStoreRepositoryLayer
         {
             try
             {
+                Connection();
                 List<WishList> wishlist = new List<WishList>();
                 SqlCommand com = new SqlCommand("spGetAllWishList", connection);
                 com.CommandType = CommandType.StoredProcedure;

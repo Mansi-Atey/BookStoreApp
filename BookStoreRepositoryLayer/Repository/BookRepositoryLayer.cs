@@ -52,7 +52,7 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public bool DeleteBook(int bookID)
+        public int DeleteBook(int bookID)
         {
             try
             {
@@ -62,9 +62,9 @@ namespace BookStoreRepositoryLayer
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i >= 1)
-                        return true;
+                        return 1;
                     else
-                        return false;
+                        return 0;
             }
             catch (Exception exception)
             {
@@ -117,16 +117,17 @@ namespace BookStoreRepositoryLayer
                     //Bind bookModel generic list using dataRow     
                     foreach (DataRow dr in dt.Rows)
                     {
-                        booklist.Add(
-                            new Books
-                            {
+                    booklist.Add(
+                        new Books
+                        {
+                                
                                 BookID = Convert.ToInt32(dr["BookID"]),
                                 BookName = Convert.ToString(dr["BookName"]),
                                 BookDiscription = Convert.ToString(dr["BookDiscription"]),
                                 BookPrice = Convert.ToInt32(dr["BookPrice"]),
                                 AuthorName = Convert.ToString(dr["AuthorName"]),
-                                Quantity = Convert.ToInt32(dr["Quantity"])
-                            });
+                                Quantity = Convert.ToInt32(dr["Quantity"]),
+                        }) ; 
                     }
                     return booklist;
             }

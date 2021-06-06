@@ -24,7 +24,7 @@ namespace BookStoreManagerLayer
             return this.cartRepository.AddCartDetails(cart);
         }
 
-        public bool DeleteCartByCartId(int cartId)
+        public int DeleteCartByCartId(int cartId)
         {
             return this.cartRepository.DeleteCartByCartId(cartId);
         }
