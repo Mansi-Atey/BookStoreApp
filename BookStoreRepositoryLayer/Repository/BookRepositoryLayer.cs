@@ -1,6 +1,8 @@
 ﻿
 using BookStoreModelLayer;
 using BookStoreRepositoryLayer.RepositoryInterface;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,6 +11,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace BookStoreRepositoryLayer
 {
@@ -52,7 +55,7 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public int DeleteBook(int bookID)
+        public bool DeleteBook(int bookID)
         {
             try
             {
@@ -62,9 +65,9 @@ namespace BookStoreRepositoryLayer
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i >= 1)
-                        return 1;
+                        return true;
                     else
-                        return 0;
+                        return false;
             }
             catch (Exception exception)
             {
@@ -75,13 +78,13 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public bool UpdateBook(int BookID, Books book)
+        public Books UpdateBook( Books book)
         {
             try
             {
                     SqlCommand cmd = new SqlCommand("spUpdateBook", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@BookID", BookID);
+                    cmd.Parameters.AddWithValue("@BookName", book.BookName);
                     cmd.Parameters.AddWithValue("@BookDiscription", book.BookDiscription);
                     cmd.Parameters.AddWithValue("@BookPrice", book.BookPrice);
                     cmd.Parameters.AddWithValue("@BookQuantity", book.Quantity);
@@ -89,9 +92,9 @@ namespace BookStoreRepositoryLayer
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i >= 1)           
-                        return true;
+                        return book;
                     else
-                        return false;
+                        return null;
             }
             catch (Exception exception)
             {
@@ -124,9 +127,10 @@ namespace BookStoreRepositoryLayer
                                 BookID = Convert.ToInt32(dr["BookID"]),
                                 BookName = Convert.ToString(dr["BookName"]),
                                 BookDiscription = Convert.ToString(dr["BookDiscription"]),
-                                BookPrice = Convert.ToInt32(dr["BookPrice"]),
+                                BookPrice = Convert.ToString(dr["BookPrice"]),
                                 AuthorName = Convert.ToString(dr["AuthorName"]),
-                                Quantity = Convert.ToInt32(dr["Quantity"]),
+                                BookImage = Convert.ToString(dr["BookImage"]),
+                                Quantity = Convert.ToString(dr["Quantity"])
                         }) ; 
                     }
                     return booklist;
@@ -140,5 +144,23 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
+        public bool UploadImage(int BookID, string imageUpload)
+        {
+            Connection();
+            SqlCommand cmd = new SqlCommand("spAddImage", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@BookID", BookID);
+            // var myAccount = new Account { ApiKey = "371652781151548", ApiSecret = "1aVBjz0E-GdsHlguqwgk_spEyCo", Cloud = "dywhtr8hk" };
+            cmd.Parameters.AddWithValue("@BookImage", imageUpload);
+            connection.Open();
+            int i = cmd.ExecuteNonQuery();
+            connection.Close();
+            if (i >= 1)
+                return true;
+
+            else
+                return false;
+        }
+        
     }
 }

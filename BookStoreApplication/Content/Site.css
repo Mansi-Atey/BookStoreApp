@@ -80,12 +80,23 @@ h5{
     margin-top: 10px;
     height: 158px;
 }
+/*.card_getcart {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 22%;
+    margin-right: 16px;
+    margin-top: 10px;
+    height: 158px;
+}*/
 .card_getbooks:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .container_getbooks {
     padding: 15px 16px;
 }
+/*container_getcart {
+    padding: 15px 16px;
+}*/
 .card_container {
     display: flex;
     flex-wrap: wrap;
@@ -95,6 +106,9 @@ h5{
 .getbook_field{
     padding:2px 5px;
 }
+/*.getcart_field {
+    padding: 2px 5px;
+}*/
 .text_size{
     font-size:10px;
     color:gray;
@@ -186,6 +200,9 @@ h1 {
     padding-top: 10px;
     padding-left: 5px;
 }
+#remove {
+    font-size: 50%;
+}
 h3 {
     font-size: 17px;
     color: gray;
@@ -199,18 +216,21 @@ h3 {
 
 .row {
     display: flex;
-    justify-content: space-around;
-    height: 35px;
+    justify-content: flex-start;
+    padding-left:33px
 }
-.third_row {
-    margin-left: 30px;
-    height: 35px;
+.Address {
+    display: flex;
 }
 .radio-btn {
     display: flex;
 }
-.continue{
-    margin-left:130%;
+.continue {
+    display: flex;
+    margin-left: 100%;
+    color: white;
+    background-color: #2877d3;
+    border-radius: 2px;
 }
 .continue-btn {
     background-color: #2877d3;
@@ -239,4 +259,13 @@ h3 {
 
 #oder-details {
     display: none;
+}
+.card_getcart {
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center
+}
+
+.container_getcart {
+    padding-left: 10px;
 }

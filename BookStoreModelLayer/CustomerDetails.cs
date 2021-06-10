@@ -10,16 +10,16 @@ namespace BookStoreModelLayer
     public class CustomerDetails
     {
         [Key]
-        public long UserId { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
         [Key]
-        public long CustomerId { get; set; }
-        public int Pincode { get; set; }
-        public long PhoneNumber { get; set; }
+        public int CustomerId { get; set; }
+        public string Pincode { get; set; }
+        public string PhoneNumber { get; set; }
         public string Locality { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string Landmark { get; set; }
-        public string AddressType { get; set; }
+        public string Type { get; set; }
     }
 }

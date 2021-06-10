@@ -134,11 +134,12 @@ namespace BookStoreRepositoryLayer
                             CartId = Convert.ToInt32(dr["CartId"]),
                             //UserId = Convert.ToInt32(dr["UserId"]),
                             BookID = Convert.ToInt32(dr["BookID"]),
-                            // TotalQuantity = Convert.ToInt32(dr["TotalQuantity"])
-                            BookName = dr["BookName"].ToString(),
-                            BookPrice = Convert.ToInt32(dr["BookPrice"]),
-                            AuthorName = dr["AuthorName"].ToString(),
-                            BookImage = dr["BookImage"].ToString(),
+                            BookName = Convert.ToString(dr["BookName"]),
+                            BookPrice = Convert.ToString(dr["BookPrice"]),
+                            AuthorName = Convert.ToString(dr["AuthorName"]),
+                            BookImage = Convert.ToString(dr["BookImage"]),
+                            TotalQuantity = Convert.ToInt32(dr["TotalQuantity"])
+
                         }) ;
                     }
                     return cartlist;

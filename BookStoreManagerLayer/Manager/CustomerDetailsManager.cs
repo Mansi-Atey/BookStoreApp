@@ -12,27 +12,27 @@ namespace BookStoreManagerLayer
 {
     public class CustomerDetailsManager:ICustomerDetailsManager
     {
-        private readonly ICustomerDetails customerRepository = new CustomerDetailsRepo();
+        private readonly ICustomerDetails customerRepository;
 
-        //public CustomerDetailsManager(ICustomerDetails customerRepository)
-        //{
-        //    this.customerRepository = customerRepository;
-        //}
-        public CustomerDetails AddCustomerDetails(CustomerDetails info)
+        public CustomerDetailsManager(ICustomerDetails customerRepository)
+        {
+            this.customerRepository = customerRepository;
+        }
+        public int AddCustomerDetails(CustomerDetails info)
         {
             return this.customerRepository.AddCustomerDetails(info);
         }
-        public bool DeleteCustomerDetails(int customerId)
-        {
-            return this.customerRepository.DeleteCustomerDetails(customerId);
-        }
-        public bool UpdateCustomerDetails(int CustomerId, CustomerDetails info)
+        //public bool DeleteCustomerDetails(int customerId)
+        //{
+        //    return this.customerRepository.DeleteCustomerDetails(customerId);
+        //}
+        public CustomerDetails UpdateCustomerDetails(int CustomerId, CustomerDetails info)
         {
             return this.customerRepository.UpdateCustomerDetails(CustomerId,info);
         }
-        public List<CustomerDetails> GellAllCustomerDetails()
+        public List<CustomerDetails> GetAllCustomerDetails(int UserId)
         {
-            return this.customerRepository.GellAllCustomerDetails();
+            return this.customerRepository.GetAllCustomerDetails(UserId);
         }
     }
 }

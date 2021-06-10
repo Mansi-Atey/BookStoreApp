@@ -10,7 +10,7 @@ namespace BookStoreRepositoryLayer.RepositoryInterface
     public interface IWishListRepo
     {
         WishList AddToWishList(WishList wishList);
-        bool DeleteFromWishList(int UserId, int WishListId);
-        List<WishList> ViewWishListDetails();
+        int DeleteFromWishList(int UserId, int WishListId);
+        List<ResponseWishlist> ViewWishListDetails();
     }
 }

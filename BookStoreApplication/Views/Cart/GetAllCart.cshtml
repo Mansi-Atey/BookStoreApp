@@ -9,44 +9,47 @@
         <h4 class="text2">Cart</h4>
         @*<input type="text" placeholder="Search..">*@
     </div>
-    <div class="book">
-        <h2>Books</h2>
-        <h5>(128 items)</h5>
-    </div>
-    <div class="card">
-        <div class="cart_container">
-            @*<h1>
-                My Cart(@Model.Sum(b => b.TotalQuantity))
-            </h1>*@
+    
+  <div class="card">
+    <div class="cart_container">
+        <h1>
+            My Cart(@Model.Sum(b => b.TotalQuantity))
+        </h1>
 
-            @*// @foreach (var count in Model)
-                    //{
-                    @Model.Sum(b => b.CartBookQuantity);
-                //@count.CartBookQuantity;
-                //}
-                )*@
-            @foreach (var items in Model)
-            {
-                <div class="card_getcart">
-                    <div class="getcart_field">
-                        @items.BookImage
-                    </div>
-                    <div class="container_getcart">
-                        <div class="getcart_field">
-                            @items.BookName
-                        </div>
-                        <div class="getcart_field text_size">
-                            By @items.AuthorName
-                        </div>
-                        <div class="getcart_field">
-                            Rs @items.BookPrice
-                        </div>
-                    </div>
+    @*// @foreach (var count in Model)
+            //{
+            @Model.Sum(b => b.CartBookQuantity);
+        //@count.CartBookQuantity;
+        //}
+        )*@
+    @foreach (var items in Model)
+    {
+        <div class="card_getcart">
+            <div class="getcart_field">
+                @items.BookImage
+            </div>
+            <div class="container_getcart">
+                <div class="getcart_field">
+                    @items.BookName
                 </div>
-            }
-
-            <input type="button" value="PLACE ORDER" class="place-btn">
+                <div class="getcart_field text_size">
+                    By @items.AuthorName
+                </div>
+                <div class="getcart_field">
+                    Rs @items.BookPrice
+                </div>
+            </div>
         </div>
+        <div class="quantity">
+            <button class="decrease" onclick="decrement()">-</button>
+            <input id=demoInput type=number min=0 max=50>
+            <button class="increase" onclick="increment()">+</button>
+            <input type="button" value="Remove" id="remove-@items.CartId" onclick="RemoveCart(@items.CartId)">
+        </div>
+    }
+
+    <input type="button" value="PLACE ORDER" id="placeid" class="place-btn" onclick="place_order()">
+</div>
         <div class="cart_container">
             <div class="customer">
                 <h3>Customer Details</h3>
@@ -96,6 +99,7 @@
                         <div class="continue">
                             <input type="button" value="CONTINUE" id="cont-id" class="continue-btn" onclick="continue_order()">
                         </div>
+                        
                     </form>
 
                 </div>
@@ -123,6 +127,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 }
                 <input type="button" value="CHECKOUT" id="checkout-btn" class="checkout-btn">
             </div>

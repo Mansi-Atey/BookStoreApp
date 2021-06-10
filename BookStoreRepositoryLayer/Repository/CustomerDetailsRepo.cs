@@ -21,14 +21,14 @@ namespace BookStoreRepositoryLayer
             connection = new SqlConnection(connectionString);
         }
 
-        public CustomerDetails AddCustomerDetails(CustomerDetails info)
+        public int AddCustomerDetails(CustomerDetails info)
         {
             try
             {
                 Connection();
-                SqlCommand cmd = new SqlCommand("spAddBooks", connection);
+                SqlCommand cmd = new SqlCommand("spAddCustomerDetails", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserId", info.UserId);
+                cmd.Parameters.AddWithValue("@UserId", 1);
                 cmd.Parameters.AddWithValue("@Name", info.Name);
                 cmd.Parameters.AddWithValue("@Address", info.Address);
                 cmd.Parameters.AddWithValue("@Pincode",info.Pincode);
@@ -36,7 +36,62 @@ namespace BookStoreRepositoryLayer
                 cmd.Parameters.AddWithValue("@Locality", info.Locality);
                 cmd.Parameters.AddWithValue("@City", info.City);
                 cmd.Parameters.AddWithValue("@Landmark", info.Landmark);
-                cmd.Parameters.AddWithValue("@AddressType", info.AddressType);
+                cmd.Parameters.AddWithValue("@Type", info.Type);
+                connection.Open();
+                int i = cmd.ExecuteNonQuery();
+                connection.Close();
+                if (i >= 1)
+                    return 1;
+                else
+                    return 0;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        //public bool DeleteCustomerDetails(int customerId)
+        //{
+        //    try
+        //    {
+        //        SqlCommand cmd = new SqlCommand("spDeleteCustomerDetails", connection);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.AddWithValue("@CustomerId", customerId);
+        //        connection.Open();
+        //        int i = cmd.ExecuteNonQuery();
+        //        if (i >= 1)
+        //            return true;
+        //        else
+        //            return false;
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        throw new Exception(exception.Message);
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
+        public CustomerDetails UpdateCustomerDetails(int CustomerId, CustomerDetails info)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("spUpdateCustomerDetails", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CustomerId", CustomerId);
+                cmd.Parameters.AddWithValue("@Name", info.Name);
+                cmd.Parameters.AddWithValue("@Address", info.Address);
+                cmd.Parameters.AddWithValue("@Pincode", info.Pincode);
+                cmd.Parameters.AddWithValue("@PhoneNumber", info.PhoneNumber);
+                cmd.Parameters.AddWithValue("@Locality", info.Locality);
+                cmd.Parameters.AddWithValue("@City", info.City);
+                cmd.Parameters.AddWithValue("@Landmark", info.Landmark);
+                cmd.Parameters.AddWithValue("@Type", info.Type);
                 connection.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i >= 1)
@@ -53,73 +108,22 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public bool DeleteCustomerDetails(int customerId)
+        public List<CustomerDetails> GetAllCustomerDetails(int UserId)
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("spDeleteCustomerDetails", connection);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@CustomerId", customerId);
-                connection.Open();
-                int i = cmd.ExecuteNonQuery();
-                if (i >= 1)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception(exception.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        public bool UpdateCustomerDetails(int CustomerId, CustomerDetails info)
-        {
-            try
-            {
-                SqlCommand cmd = new SqlCommand("spUpdateCustomerDetails", connection);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@CustomerId", CustomerId);
-                cmd.Parameters.AddWithValue("@Name", info.Name);
-                cmd.Parameters.AddWithValue("@Address", info.Address);
-                cmd.Parameters.AddWithValue("@Pincode", info.Pincode);
-                cmd.Parameters.AddWithValue("@PhoneNumber", info.PhoneNumber);
-                cmd.Parameters.AddWithValue("@Locality", info.Locality);
-                cmd.Parameters.AddWithValue("@City", info.City);
-                cmd.Parameters.AddWithValue("@Landmark", info.Landmark);
-                cmd.Parameters.AddWithValue("@AddressType", info.AddressType);
-                connection.Open();
-                int i = cmd.ExecuteNonQuery();
-                if (i >= 1)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception(exception.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        public List<CustomerDetails> GellAllCustomerDetails()
-        {
-            try
-            {
+                Connection();
                 List<CustomerDetails> customerlist = new List<CustomerDetails>();
                 SqlCommand com = new SqlCommand("spGetAllCustomerDetails", connection);
                 com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@UserId", UserId);
+                //com.Parameters.AddWithValue("@CustomerId", CustomerId);
                 SqlDataAdapter da = new SqlDataAdapter(com);
                 DataTable dt = new DataTable();
                 connection.Open();
                 da.Fill(dt);
-                connection.Close();
-                //Bind EmpModel generic list using dataRow     
+               // connection.Close();
+                //Bind CustomerDetails generic list using dataRow     
                 foreach (DataRow dr in dt.Rows)
                 {
                     customerlist.Add(
@@ -128,15 +132,15 @@ namespace BookStoreRepositoryLayer
                             CustomerId = Convert.ToInt32(dr["CustomerId"]),
                             UserId = Convert.ToInt32(dr["UserId"]),
                             Name = Convert.ToString(dr["Name"]),
-                             Address= Convert.ToString(dr["Address"]),
-                            Pincode = Convert.ToInt32(dr["Pincode"]),
-                            PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]),
+                            Address = Convert.ToString(dr["Address"]),
+                            Pincode = Convert.ToString(dr["Pincode"]),
+                            PhoneNumber = Convert.ToString(dr["PhoneNumber"]),
                             Locality = Convert.ToString(dr["Locality"]),
                             City = Convert.ToString(dr["City"]),
                             Landmark = Convert.ToString(dr["Landmark"]),
-                            AddressType = Convert.ToString(dr["AddressType"]),
+                            Type = Convert.ToString(dr["Type"])
 
-                        });
+                        }); 
                 }
                 return customerlist;
             }

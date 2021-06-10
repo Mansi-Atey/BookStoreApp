@@ -22,7 +22,7 @@ namespace BookStoreRepositoryLayer
         }
         public WishList AddToWishList(WishList wishList)
         {
-            WishList WishList = new WishList();
+           
             try
             {
                 Connection();
@@ -30,7 +30,7 @@ namespace BookStoreRepositoryLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@UserId", wishList.UserId);
                 cmd.Parameters.AddWithValue("@BookID", wishList.BookID);
-                cmd.Parameters.AddWithValue("@Quantity", wishList.WishListQuantity);
+                cmd.Parameters.AddWithValue("@WishListQuantity", wishList.WishListQuantity);
                 connection.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i >= 1)
@@ -48,7 +48,7 @@ namespace BookStoreRepositoryLayer
                 connection.Close();
             }
         }
-        public bool DeleteFromWishList(int UserId, int WishListId)
+        public int DeleteFromWishList(int UserId, int WishListId)
         {
             try
             {
@@ -61,9 +61,9 @@ namespace BookStoreRepositoryLayer
                 int i = cmd.ExecuteNonQuery();
                 connection.Close();
                 if (i >= 1)
-                    return true;
+                    return WishListId;
                 else
-                    return false;
+                    return 0;
             }
             catch (Exception ex)
             {
@@ -75,14 +75,15 @@ namespace BookStoreRepositoryLayer
             }
         }
    
-        public List<WishList> ViewWishListDetails()
+        public List<ResponseWishlist> ViewWishListDetails()
         {
             try
             {
                 Connection();
-                List<WishList> wishlist = new List<WishList>();
+                List<ResponseWishlist> wishlist = new List<ResponseWishlist>();
                 SqlCommand com = new SqlCommand("spGetAllWishList", connection);
                 com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@UserId", 1);
                 SqlDataAdapter da = new SqlDataAdapter(com);
                 DataTable dt = new DataTable();
                 connection.Open();
@@ -91,13 +92,13 @@ namespace BookStoreRepositoryLayer
                 foreach (DataRow dr in dt.Rows)
                 {
                     wishlist.Add(
-                        new WishList
+                        new ResponseWishlist
                         {
                             UserId = Convert.ToInt32(dr["UserId"]),
-                            WishListId = Convert.ToInt32(dr["WishListId"]),
+                           // WishListId = Convert.ToInt32(dr["WishListId"]),
                             BookID = Convert.ToInt32(dr["BookID"]),
                             BookName = Convert.ToString(dr["BookName"]),
-                            Price = Convert.ToInt32(dr["Price"]),
+                            BookPrice = Convert.ToString(dr["Price"]),
                             WishListQuantity = Convert.ToInt32(dr["WishListQuantity"])
                         });
                 }

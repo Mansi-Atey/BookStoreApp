@@ -9,9 +9,9 @@ namespace BookStoreManagerLayer.InterfaceManager
 {
    public interface ICustomerDetailsManager
     {
-        CustomerDetails AddCustomerDetails(CustomerDetails info);
-        bool DeleteCustomerDetails(int customerId);
-         bool UpdateCustomerDetails(int CustomerId, CustomerDetails info);
-        List<CustomerDetails> GellAllCustomerDetails();
+        int AddCustomerDetails(CustomerDetails info);
+        //bool DeleteCustomerDetails(int customerId);
+         CustomerDetails UpdateCustomerDetails(int CustomerId, CustomerDetails info);
+        List<CustomerDetails> GetAllCustomerDetails(int UserId);
     }
 }

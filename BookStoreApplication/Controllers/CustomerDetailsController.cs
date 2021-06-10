@@ -11,20 +11,41 @@ namespace BookStoreApplication.Controllers
 {
     public class CustomerDetailsController : Controller
     {
-        private readonly ICustomerDetailsManager customerManager = new CustomerDetailsManager();
-        public CustomerDetailsController()
+        private readonly ICustomerDetailsManager customerManager;
+        public CustomerDetailsController(ICustomerDetailsManager customerManager)
         {
-
+            this.customerManager = customerManager;
         }
         // GET: CustomerDetails
 
         [HttpPost]
-        public JsonResult AddCustomerDetails(CustomerDetails customers)
+        public ActionResult AddCustomerDetails(CustomerDetails customers)
         {
             try
             {
                 var result = this.customerManager.AddCustomerDetails(customers);
-                if (result != null)
+                if (result > 0)
+                {
+                    return Json(new { status = true, Message = "Customer added..!!!", Data = result });
+                }
+                else
+                {
+                    return Json(new { status = false, Message = "Customer not added...!!", Data = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+                //return ViewBag.Message = "sucessfully";
+            }
+        }
+        [HttpPost]
+        public ActionResult UpdateCustomerDetails(int CustomerId,CustomerDetails info)
+        {
+            try
+            {
+                var result = this.customerManager.UpdateCustomerDetails(CustomerId,info);
+                if (result !=null)
                 {
                     return Json(new { status = true, Message = "Customer added..!!!", Data = result });
                 }
@@ -40,13 +61,21 @@ namespace BookStoreApplication.Controllers
             }
         }
         [HttpGet]
-        public ActionResult GellAllCustomerDetails()
+        public ActionResult GetAllCustomerDetails(int UserId)
         {
             try
             {
-                var result = this.customerManager.GellAllCustomerDetails();
-                ViewBag.Message = "";
-                return View(result);
+                //int UserId = 1;
+                var result = this.customerManager.GetAllCustomerDetails(UserId);
+                //ViewBag.Message = "";
+                if (result != null)
+                {
+                    return Json(new { status = true, Message = "Customers details fetched successfully ..!!!", Data = result }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, Message = "No customer present..!!", Data = result }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {

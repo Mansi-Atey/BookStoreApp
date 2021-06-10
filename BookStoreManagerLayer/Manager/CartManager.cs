@@ -12,12 +12,12 @@ namespace BookStoreManagerLayer
 {
    public class CartManager:ICartManager
     {
-        private readonly ICart cartRepository = new CartRepo();
+        private readonly ICart cartRepository;
 
-        //public CartManager(ICart cartRepository)
-        //{
-        //    this.cartRepository = cartRepository;
-        //}
+        public CartManager(ICart cartRepository)
+        {
+            this.cartRepository = cartRepository;
+        }
 
         public Cart AddCartDetails(Cart cart)
         {

@@ -13,10 +13,10 @@ namespace BookStoreApplication.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        private readonly ICartManager cartManager = new CartManager();
-        public CartController()
+        private readonly ICartManager cartManager;
+        public CartController(ICartManager cartManager)
         {
-
+            this.cartManager = cartManager;
         }
         //public ActionResult AddToCart()
         //{
@@ -51,8 +51,8 @@ namespace BookStoreApplication.Controllers
                 var result = this.cartManager.DeleteCartByCartId(cartId);
                 if (result > 0)
                 {
-                    return View();
-                    // return Json(new { status = true, Message = "Book added to cart", Data = result });
+                    //return View();
+                    return Json(new { status = true, Message = "Book added to cart", Data = result });
                 }
                 else
                 {

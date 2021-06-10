@@ -10,12 +10,13 @@ using System.Web.Mvc;
 
 namespace BookStoreApplication.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
-        private readonly IUserManager userManager = new UserManagerLayer();
-        public UserController()
+        private readonly IUserManager userManager;
+        public UserController(IUserManager userManager)
         {
-
+            this.userManager = userManager;
         }
         public ActionResult Register()
         {
@@ -41,6 +42,7 @@ namespace BookStoreApplication.Controllers
                 return ViewBag.Message = "User registered unsuccessfully";
             }
         }
+       // [Authorize]
         [HttpPost]
         public ActionResult Login(Login login)
         {

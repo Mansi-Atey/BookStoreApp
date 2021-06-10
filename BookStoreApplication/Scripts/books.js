@@ -44,7 +44,7 @@ function AddToWishList(bookID) {
     var requestObject = {};
     requestObject.UserId = 1;
     requestObject.BookID = bookID;
-    requestObject.TotalQuantity = 1;
+    requestObject.WishListQuantity = 1;
     console.log(JSON.stringify(requestObject));
     $.ajax({
         type: "POST",

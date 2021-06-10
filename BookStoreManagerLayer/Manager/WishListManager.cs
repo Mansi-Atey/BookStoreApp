@@ -12,21 +12,21 @@ namespace BookStoreManagerLayer
 {
    public class WishListManager:IWishListManager
     {
-        private readonly IWishListRepo wishListRepository = new WishListRepo();
+        private readonly IWishListRepo wishListRepository;
 
-        //public WishListManager(IWishListRepo wishListRepository)
-        //{
-        //    this.wishListRepository = wishListRepository;
-        //}
+        public WishListManager(IWishListRepo wishListRepository)
+        {
+            this.wishListRepository = wishListRepository;
+        }
         public WishList AddToWishList(WishList wishList)
         {
             return this.wishListRepository.AddToWishList(wishList);
         }
-        public bool DeleteFromWishList(int UserId, int WishListId)
+        public int DeleteFromWishList(int UserId, int WishListId)
         {
             return this.wishListRepository.DeleteFromWishList(UserId, WishListId);
         }
-       public List<WishList> ViewWishListDetails()
+       public List<ResponseWishlist> ViewWishListDetails()
         {
             return this.wishListRepository.ViewWishListDetails();
         }
